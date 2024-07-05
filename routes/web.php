@@ -37,6 +37,23 @@ Route::controller(LivewireTestController::class)
     Route::get('register', 'register')->name('register');
 });
 
+Route::prefix('manager')
+->middleware('can:manager-higher')
+->group(function(){
+    Route::get('index', function(){
+        dd('manager');
+    });
+});
+
+Route::middleware('can:user-higher')
+->group(function(){
+    Route::get('index', function(){
+        dd('user');
+    });
+});
+
+
+
 Route::get('alpine-test/index', [AlpineTestController::class, 'index']);
 
 
