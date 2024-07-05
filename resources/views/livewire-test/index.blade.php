@@ -1,4 +1,4 @@
-<html>
+<ihtml>
     <head>
         @livewireStyles
     </head>
@@ -15,4 +15,4 @@
        @livewire('counter')
         @livewireScripts
     </body>
-</html>
+</ihtml>
