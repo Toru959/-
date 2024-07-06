@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use app\Services\EventService;
+use App\Services\EventService;
 
 class EventController extends Controller
 {
