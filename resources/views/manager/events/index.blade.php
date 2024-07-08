@@ -17,7 +17,7 @@
                 @endif
                     <button onclick="location.href='{{ route('events.create') }}'" class="flex mb-4 ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">新規登録</button>
                     <div class=" w-full mx-auto overflow-auto">
-                    <t5able class="table-auto w-full text-left whitespace-no-wrap">
+                    <table class="table-auto w-full text-left whitespace-no-wrap">
                         <thead>
                         <tr>
                             <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">イベント名</th>
