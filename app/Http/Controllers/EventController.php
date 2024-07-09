@@ -20,12 +20,12 @@ class EventController extends Controller
     {
         $today = Carbon::today();
         
-        $reservedPeople = DB::table('reservations')
+        $reservedPeople =  DB::table('reservations')
         ->select('event_id', DB::raw('sum(number_of_people) as number_of_people'))
         ->whereNull('canceled_date')
         ->groupBy('event_id');
 
-        $events = DB::table('events')
+        $events =  DB::table('events')
         ->leftJoinSub($reservedPeople, 'reservedPeople', 
         function($join){
             $join->on('events.id', '=', 'reservedPeople.event_id');
@@ -33,8 +33,8 @@ class EventController extends Controller
         ->whereDate('start_date', '>=', $today)
         ->orderBy('start_date', 'asc')
         ->paginate(10);
-
-       return view('manager.events.index', compact('events')); 
+        
+        return view('manager.events.index', compact('events')); 
     }
 
     /**

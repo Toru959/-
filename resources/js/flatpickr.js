@@ -8,6 +8,13 @@ flatpickr("#event_date", {
     maxDate: new Date().fp_incr(30),
 });
 
+// カレンダーの日付ピッカーの設定
+flatpickr("#calendar", {
+    locale: Japanese,
+   // minDate: "today",
+    maxDate: new Date().fp_incr(30),
+});
+
 // 時間ピッカーの設定
 const setting = {
     locale: Japanese,
@@ -16,7 +23,8 @@ const setting = {
     dateFormat: "H:i",
     time_24hr: true,
     minTime: "10:00",
-    maxTime: "20:00"
+    maxTime: "20:00",
+    minuteIncrement: 30,
 };
 
 flatpickr("#start_time", setting);
