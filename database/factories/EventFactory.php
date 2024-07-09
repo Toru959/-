@@ -16,10 +16,13 @@ class EventFactory extends Factory
      */
     public function definition()
     {
-        $availableHour = $this->faker->numberBetween(10, 20);
+        $availableHour = $this->faker->numberBetween(10, 17);
         $minutes = [0, 30];
         $mKey = array_rand($minutes);
         $addHour = $this->faker->numberBetween(1, 3);
+
+        //$addHour = $this->faker->numberBetween(1, min(3, 20 - $availableHour)); // 最大で$availableHourを超えないように調整
+
 
         $dummyDate = $this->faker->dateTimeThisMonth;
         $startDate = $dummyDate->setTime($availableHour, $minutes[$mKey]);
