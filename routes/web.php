@@ -58,12 +58,15 @@ Route::middleware('can:user-higher')
     ->name('mypage.show');
     Route::post('/mypage/{id}', [MyPageController::class, 'cancel'])
     ->name('mypage.cancel');
-    Route::get('/{id}', [ReservationController::class, 'detail'])
-    ->name('events.detail');
+    //Route::get('/{id}', [ReservationController::class, 'detail'])
+    //->name('events.detail');
     Route::post('/{id}', [ReservationController::class, 'reserve'])
     ->name('events.reserve');
 });
 
+Route::middleware('auth')
+->get('/{id}', [ReservationController::class, 'detail'])
+->name('events.detail');
 
 
 //Route::get('alpine-test/index', [AlpineTestController::class, 'index']);
