@@ -37,7 +37,6 @@ class ReservationController extends Controller
         ->where('canceled_date', '=', null)
         ->latest()
         ->first();
-
         return view('event-detail', compact('event', 'reservablePeople', 'isReserved'));
     }
 

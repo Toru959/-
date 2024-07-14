@@ -64,8 +64,7 @@ Route::middleware('can:user-higher')
     ->name('events.reserve');
 });
 
-Route::middleware('auth')
-->get('/{id}', [ReservationController::class, 'detail'])
+Route::get('/{id}', [ReservationController::class, 'detail'])
 ->name('events.detail');
 
 
