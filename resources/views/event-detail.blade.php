@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }} 
+            イベントの詳細
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="pt-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="text-black bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class ="max-w-2xl mx-auto">
@@ -17,44 +17,58 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('events.store') }}">
-                    @csrf
-
+                <form method="post" action="{{ route('events.reserve', [ 'id' => $event->id ]) }}">
+                @csrf
                     <div class="mt-4">
                         <x-jet-label for="event_name" value="イベント名" />
-                        <x-jet-input id="event_name" class="block mt-1 w-full" type="text" name="event_name" :value="old('event_name')" required autofocus autocomplete="username" />
+                        {{ $event->name }}
                     </div>
                     <div class="mt-4">
                         <x-jet-label for="information" value="イベント詳細" />
-                        <x-textarea row="3" id="information" name="information" class="block mt-1 w-full">{{ old('information') }}</x-textarea>
+                        {!! nl2br(e($event->information)) !!}
                     </div>
 
                     <div class="md:flex justify-between">
                         <div class="mt-4">
                             <x-jet-label for="event_date" value="イベント日付" />
-                            <x-jet-input id="event_date" class="block mt-1 w-full" type="text" name="event_date" :value="old('event_date')" required />
+                            {{ $event->eventDate }}
                         </div>
                         <div class="mt-4">
                             <x-jet-label for="start_time" value="開始時間" />
-                            <x-jet-input id="start_time" class="block mt-1 w-full" type="text" name="start_time" :value="old('start_time')" required />
+                            {{ $event->startTime }}
                         </div>
                         <div class="mt-4">
                             <x-jet-label for="end_time" value="終了時間" />
-                            <x-jet-input id="end_time" class="block mt-1 w-full" type="text" name="end_time" :value="old('start_time')" required />
+                            {{ $event->endTime }}
                         </div>
                     </div>
                     <div class="md:flex justify-between items-end mb-4">
                         <div class="mt-4">
                             <x-jet-label for="max_people" value="定員数" />
-                            <x-jet-input id="max_people" class="block mt-1 w-full" type="number" name="max_people" :value="old('max_people')" required />
+                            {{ $event->max_people }}
                         </div>
-                        <div class="flex space-x-4 justify-around">
-                            <input type="radio" name="is_visible" value="1" checked />表示
-                            <input type="radio" name="is_visible" value="0" />非表示
+                        <div class="mt-4">
+                            @if($reservablePeople <= 0)
+                                <span class="text-xs text-blue-300">このイベントは満員です。</span>
+                            @else
+                                <x-jet-label for="reservedPeople" value="予約人数" />
+                                <select name="reservedPeople">
+                                    @for($i = 1; $i <= $reservablePeople; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            @endif
                         </div>
-                        <x-jet-button class="ml-4">
-                            新規登録
-                        </x-jet-button>
+                        @if($isReserved === null)
+                            <input type="hidden" name="id" value="{{ $event->id }}">
+                            @if($reservablePeople > 0)
+                                <x-jet-button class="ml-4">
+                                    予約する
+                                </x-jet-button>
+                            @endif
+                        @else
+                            <span class="text-xs">このイベントは既に予約済みです。</span>
+                        @endif
                     </div>
                 </form>
                 </div>
